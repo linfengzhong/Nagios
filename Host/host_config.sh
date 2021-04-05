@@ -10,24 +10,37 @@
 #检测配置文件是否 OK 的命令
 #/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg 
 
-sudo
+#切换root
+sudo su
+#切换到临时文件夹
 cd /tmp
+#从GitHub获取配置文件
 wget --no-check-certificate https://github.com/linfengzhong/Nagios/archive/refs/tags/0.06.zip
+#解压缩
 unzip 0.06.zip
+#给文件赋予权限
 chmod 777 /tmp/Nagios-0.06/Libexec/check_*
+#创建服务器配置文件夹
 mkdir /usr/local/nagios/etc/objects/myservers
-chmod 666 /usr/local/nagios/etc/objects/myservers
-chmod 666 /usr/local/nagios/etc/objects/myservers/*
+chmod 777 /usr/local/nagios/etc/objects/myservers
+chmod 777 /usr/local/nagios/etc/objects/myservers/*
 
-cp -p -f /tmp/Nagios-0.06/Libexec/check_* /usr/local/nagios/libexec
-cp -p -f /tmp/Nagios-0.06/Remote/nrpe.cfg /usr/local/nagios/etc/
-cp -p -f /tmp/Nagios-0.06/Host/nagios.cfg /usr/local/nagios/etc/
-cp -p -f /tmp/Nagios-0.06/Host/myservers/* /usr/local/nagios/etc/objects/myservers
-
+#复制check程序到指定文件夹
+\cp -p -f /tmp/Nagios-0.06/Libexec/check_* /usr/local/nagios/libexec
+#复制nrpe的主配置文件，加上要调用的check命令
+\cp -p -f /tmp/Nagios-0.06/Remote/nrpe.cfg /usr/local/nagios/etc/
+#复制Nagios主配置文件
+\cp -p -f /tmp/Nagios-0.06/Host/nagios.cfg /usr/local/nagios/etc/
+#复制remote servers的配置文件
+\cp -p -f /tmp/Nagios-0.06/Host/myservers/* /usr/local/nagios/etc/objects/myservers
+#检查nrpe服务状态
 systemctl status nrpe
+#重启nrpe服务
 systemctl restart nrpe
-
+#检测配置文件是否 OK 的命令
 /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 
-systemctl status nagios 
+#检查Nagios服务的状态
+systemctl status nagios
+#重启Nagios服务 
 systemctl restart nagios
