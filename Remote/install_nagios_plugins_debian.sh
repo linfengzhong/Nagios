@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh
+#
+# Author: Linfeng Zhong (Fred)
+# 2021-April-06 [Initial Version] - Shell Script for Nagios Plugins installing
+# Nagios Plugins - Installing Nagios Plugins From Source
 # 安装Nagios plugins
 # -------------------------------------------------------------
 ###################################################################
@@ -20,7 +24,7 @@ tar xzf nagios-plugins-2.3.3.tar.gz
 cd nagios-plugins-2.3.3
 if ! command; then echo "Step3 failed"; exit 1; fi
 # -------------------------------------------------------------
-#NPRE Installation
+#Nagios Plugins Installation
 echo "Step4: 安装nagios plugins, 并重新启动nrpe服务"
 ./tools/setup
 ./configure
@@ -31,7 +35,7 @@ if ! command; then echo "Step4 failed"; exit 1; fi
 
 # 这里是判断上条命令是否执行成功的语句块
 if [ $? -eq 0 ]; then
-   echo "nrpe 安装成功！"
+   echo "Nagios Plugins 安装成功！"
 else
-   echo "nrpe 安装失败！"
+   echo "Nagios Plugins 安装失败！"
 fi
