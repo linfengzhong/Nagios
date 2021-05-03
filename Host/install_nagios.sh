@@ -21,7 +21,8 @@ Error="${Red}[错误]${Font}"
 # 版本
 shell_version="1.1.5.1"
 shell_mode="None"
-github_branch="master"
+github_branch="main"
+version_cmp="/tmp/version_cmp.tmp"
 
 #从VERSION中提取发行版系统的英文名称，为了在debian/ubuntu下添加相对应的Nginx apt源
 VERSION=$(echo "${VERSION}" | awk -F "[()]" '{print $2}')
@@ -65,6 +66,16 @@ is_root() {
         exit 1
     fi
 }
+
+function is_root() {
+  if [[ 0 == "$UID" ]]; then
+    print_ok "当前用户是 root 用户，开始安装流程"
+  else
+    print_error "当前用户不是 root 用户，请切换到 root 用户后重新执行脚本"
+    exit 1
+  fi
+}
+
 judge() {
     if [[ 0 -eq $? ]]; then
         echo -e "${OK} ${GreenBG} $1 完成 ${Font}"
@@ -73,6 +84,29 @@ judge() {
         echo -e "${Error} ${RedBG} $1 失败${Font}"
         exit 1
     fi
+}
+
+update_sh() {
+
+    ol_version=$(curl -L -s https://raw.githubusercontent.com/linfengzhong/Nagios/${github_branch}/install_nagios.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
+    echo "$ol_version" >$version_cmp
+    echo "$shell_version" >>$version_cmp
+    if [[ "$shell_version" < "$(sort -rV $version_cmp | head -1)" ]]; then
+        echo -e "${OK} ${GreenBG} 存在新版本，是否更新 [Y/N]? ${Font}"
+        read -r update_confirm
+        case $update_confirm in
+        [yY][eE][sS] | [yY])
+            wget -N --no-check-certificate https://raw.githubusercontent.com/linfengzhong/Nagios/${github_branch}/install_nagios.sh
+            echo -e "${OK} ${GreenBG} 更新完成 ${Font}"
+            exit 0
+            ;;
+        *) ;;
+
+        esac
+    else
+        echo -e "${OK} ${GreenBG} 当前版本为最新版本 ${Font}"
+    fi
+
 }
 
 list() {
