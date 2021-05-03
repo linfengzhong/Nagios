@@ -39,6 +39,7 @@ check_system() {
         exit 1
     fi
 
+# Install dbus --> D-Bus是一个为应用程序间通信的消息总线系统, 用于进程之间的通信
     $INS install dbus
 
     systemctl stop firewalld
