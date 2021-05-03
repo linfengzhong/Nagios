@@ -18,6 +18,11 @@ Info="${Green}[信息]${Font}"
 OK="${Green}[OK]${Font}"
 Error="${Red}[错误]${Font}"
 
+# 版本
+shell_version="1.1.5.1"
+shell_mode="None"
+github_branch="master"
+
 #从VERSION中提取发行版系统的英文名称，为了在debian/ubuntu下添加相对应的Nginx apt源
 VERSION=$(echo "${VERSION}" | awk -F "[()]" '{print $2}')
 
