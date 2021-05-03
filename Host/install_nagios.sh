@@ -27,6 +27,14 @@ version_cmp="/tmp/version_cmp.tmp"
 #从VERSION中提取发行版系统的英文名称，为了在debian/ubuntu下添加相对应的Nginx apt源
 VERSION=$(echo "${VERSION}" | awk -F "[()]" '{print $2}')
 
+function print_ok() {
+  echo -e "${OK} ${Blue} $1 ${Font}"
+}
+
+function print_error() {
+  echo -e "${ERROR} ${RedBG} $1 ${Font}"
+}
+
 check_system() {
     if [[ "${ID}" == "centos" && ${VERSION_ID} -ge 7 ]]; then
         echo -e "${OK} ${GreenBG} 当前系统为 Centos ${VERSION_ID} ${VERSION} ${Font}"
