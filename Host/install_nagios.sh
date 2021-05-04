@@ -87,8 +87,8 @@ if ! command; then echo "Step10 failed"; exit 1; fi
 # You need to allow port 80 inbound traffic on the local firewall 
 # so you can reach the Nagios Core web interface.
 echo "Step11: Configure Firewall"
-firewall-cmd --zone=public --add-port=80/tcp
-firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=8080/tcp
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
 if ! command; then echo "Step11 failed"; exit 1; fi
 #-----------------------------------------------------------------------------
 # Create nagiosadmin User Account
