@@ -4,7 +4,7 @@
 # 2021-April-06 [Initial Version] - Shell Script for Nagios Core installing
 # Nagios Core - Installing Nagios Core From Source
 #
-# wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/linfengzhong/Nagios/main/install_nagios.sh" && chmod 700 /root/install_nagios.sh && /root/install_nagios.sh
+# wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/linfengzhong/Nagios/main/Host/install_nagios.sh" && chmod 700 /root/install_nagios.sh && /root/install_nagios.sh
 # https://raw.githubusercontent.com/linfengzhong/Nagios/main/Host/install_nagios.sh
 #
 #-----------------------------------------------------------------------------
